@@ -1,0 +1,28 @@
+const express = require("express");
+const auth = require("../routes/AuthRoute");
+const userRoute = require("../routes/UserRoute");
+const examRoute = require("../routes/ExamRoute");
+const examResultRoute = require("../routes/ExamResultRoute");
+const assessmentRoute = require("./AssessmentRoute");
+const uploadRoute = require("./UploadRoute");
+const folderRoute = require("./FolderRoute");
+const folderQuestionRoute = require("./FolderQuestionRoute");
+const errorLogRoute = require("./ErrorLogRoute");
+const vocabularyRoute = require("./VocabularyRoute");
+const questionBankRoute = require("./QuestionBankRoute");
+const practiceResultRoute = require("./PracticeResultRoute");
+const router = express.Router();
+
+router.use("/auth", auth);
+router.use("/user", userRoute);
+router.use("/exam", examRoute);
+router.use("/exam-result", examResultRoute);
+router.use("/assessment", assessmentRoute);
+router.use("/upload", uploadRoute);
+router.use("/folder", folderRoute);
+router.use("/folder-question", folderQuestionRoute);
+router.use("/error-log", errorLogRoute);
+router.use("/vocabulary", vocabularyRoute);
+router.use("/question-bank", questionBankRoute);
+router.use("/practice-result", practiceResultRoute);
+module.exports = router;

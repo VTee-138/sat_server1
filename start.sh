@@ -1,0 +1,1 @@
+sudo pm2 start index.js --name "10sat-server"
