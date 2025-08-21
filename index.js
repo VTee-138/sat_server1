@@ -16,8 +16,8 @@ const corsOptions = {
     "http://localhost:3000",
     "http://localhost:3001",
     "http://localhost:3002",
-    "https://10sat-frontend.vercel.app",
-    "https://10sat-admin.vercel.app",
+    "https://test.10sat.edu.vn",
+    "https://admin.10sat.edu.vn",
   ],
   credentials: true,
   optionSuccessStatus: 200,
@@ -36,7 +36,7 @@ app.use("/api/v2/uploads", express.static(path.join(__dirname, "uploads")));
 // Connect MongoDB
 mongoose.promise = global.Promise;
 mongoose.connect(
-  "mongodb+srv://pimath31798:qFBgHyyOYOBUtvNu@lmf.ju0ivc3.mongodb.net/10satdb?retryWrites=true&w=majority"
+  "mongodb://root:10sat@100.68.84.62:27017/10satdb?authSource=admin"
 );
 const connection = mongoose.connection;
 connection.once("open", () =>
