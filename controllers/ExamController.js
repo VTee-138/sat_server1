@@ -83,9 +83,10 @@ const getExams = async (req, res) => {
     }
 
     const isValidObjectId = mongoose.Types.ObjectId.isValid(query);
-
+    let totalExamsCount = 0;
+    let exams = [];
     if (isValidObjectId) {
-      totalExams = await ExamModel.countDocuments({
+      totalExamsCount = await ExamModel.countDocuments({
         $or: [
           { _id: new mongoose.Types.ObjectId(query) },
           { "title.text": { $regex: query, $options: "i" } },
@@ -103,7 +104,7 @@ const getExams = async (req, res) => {
         .sort({ createdAt: -1 })
         .lean();
     } else {
-      totalExams = await ExamModel.countDocuments({
+      totalExamsCount = await ExamModel.countDocuments({
         $or: [
           { "title.text": { $regex: query, $options: "i" } },
           { "title.code": { $regex: query, $options: "i" } },
@@ -123,8 +124,8 @@ const getExams = async (req, res) => {
     return res.status(CONSTANT.OK).json(
       encryptData({
         data: exams,
-        totalExams,
-        totalPages: Math.ceil(totalExams / limit),
+        totalExams: totalExamsCount,
+        totalPages: Math.ceil(totalExamsCount / limit),
         currentPage: page,
       })
     );

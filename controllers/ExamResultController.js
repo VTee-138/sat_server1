@@ -71,7 +71,7 @@ const submitTest = async (req, res) => {
       );
       return res.status(CONSTANT.OK).json({
         message: `Bạn đã nộp bài thành công`,
-        isDifficulty: score["MODULE 1"] || 0 / exam.numberOfQuestions >= 0.6,
+        isDifficulty: score["MODULE 1"] / exam.numberOfQuestions >= 0.6,
       });
     }
     let module1 = 0;
@@ -149,7 +149,7 @@ const submitTest = async (req, res) => {
 
     return res.status(CONSTANT.OK).json({
       message: `Bạn đã nộp bài thành công`,
-      isDifficulty: score["MODULE 1"] || 0 / exam.numberOfQuestions >= 0.6,
+      isDifficulty: score["MODULE 1"] / exam.numberOfQuestions >= 0.6,
     });
   } catch (error) {
     console.error(error);

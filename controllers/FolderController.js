@@ -89,11 +89,16 @@ const getFolders = async (req, res) => {
     }
 
     const totalItems = await FolderModel.countDocuments(query);
-    const folders = await FolderModel.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .lean();
+    let folders = [];
+    if (limit === "all") {
+      folders = await FolderModel.find(query).sort({ createdAt: -1 }).lean();
+    } else {
+      folders = await FolderModel.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit))
+        .lean();
+    }
 
     // Thêm số lượng từ vựng cho mỗi thư mục
     for (let folder of folders) {

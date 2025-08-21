@@ -151,12 +151,20 @@ const getVocabularies = async (req, res) => {
     }
 
     const totalItems = await VocabularyModel.countDocuments(filter);
-    const vocabularies = await VocabularyModel.find(filter)
-      .populate("folderId", "name color")
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .lean();
+    let vocabularies = [];
+    if (limit === "all") {
+      vocabularies = await VocabularyModel.find(filter)
+        .populate("folderId", "name color")
+        .sort({ createdAt: -1 })
+        .lean();
+    } else {
+      vocabularies = await VocabularyModel.find(filter)
+        .populate("folderId", "name color")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit))
+        .lean();
+    }
 
     return res.status(CONSTANT.OK).json(
       encryptData({

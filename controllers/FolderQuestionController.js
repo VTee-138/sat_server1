@@ -147,11 +147,18 @@ const getFolderQuestions = async (req, res) => {
     }
 
     const totalItems = await FolderQuestionModel.countDocuments(query);
-    const folders = await FolderQuestionModel.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .lean();
+    let folders = [];
+    if (limit === "all") {
+      folders = await FolderQuestionModel.find(query)
+        .sort({ createdAt: -1 })
+        .lean();
+    } else {
+      folders = await FolderQuestionModel.find(query)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(parseInt(limit))
+        .lean();
+    }
 
     // TODO: Add question count for each folder later
     for (let folder of folders) {
